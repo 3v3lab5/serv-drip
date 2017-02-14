@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var Bed = new Schema({
-    bid: String,
+    bname: String,
     station: String   
 });
 

@@ -1,7 +1,6 @@
 var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
-var Patient = require('../models/patient');
 var Bed = require('../models/bed');
 var router = express.Router();
 
@@ -54,7 +53,7 @@ router.get('/adddripo',checkAuthentication, function(req, res) {
 
 
 router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    Account.register(new Account({ username : req.body.username, hname : req.body.hname }), req.body.password,  function(err, account) {
         if (err) {
             return res.render('register', { account : account });
         }
