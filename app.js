@@ -1,4 +1,3 @@
-// dependencies
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,23 +7,10 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var WiFiControl = require('wifi-control');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var http = require("http");
-
 var app = express();
- WiFiControl.init({
-    debug: true
-  });
-var _ap = {
-    ssid: "Dripo",
-  };
-  var results = WiFiControl.connectToAP( _ap, function(err, response) {
-    if (err) console.log(err);
-    console.log(response);
-  });
-
 
 
 // view engine setup
@@ -56,7 +42,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // mongoose
-mongoose.connect('mongodb://localhost/auth');
+mongoose.connect('mongodb://localhost/dripo');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

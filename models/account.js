@@ -7,6 +7,7 @@ var Account = new Schema({
     password: String
 });
 
+
 Account.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Account', Account);

@@ -1,8 +1,45 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('/fonts/glyphicons-halflings-regular.eot');
+  src: url('/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
 
-a {
-  color: #00B7FF;
+html,body,.row {
+  height:100%;
+  overflow:hidden;
+}
+.row > div {
+  height:100%;
+}
+.leftbar{
+background:#2E2E2E;
+height:100%;
+}
+.middlebar{
+background:#FCFCFC;
+overflow:scroll;
+}
+.middlebar .card{
+border-radius:.1em;
+background-color:white;
+border:1px solid #CCCCCC;
+height:100px;
+margin-bottom:1em;
+}
+.rightbar{
+background:#212121;
+height:100%;
+color:#FCFCFC;
+text-align:center;
+padding-left:0px;
+}
+.rightbar .glyphicon {
+font-size: 20px;
+}
+.rightbar .icon{
+padding-top:1em;
+border-bottom:1px solid #CCCCCC;
+}
+.wrap{
+height:100%;
 }
