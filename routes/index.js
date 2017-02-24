@@ -1,8 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
-var Patient = require('../models/patient');
-var Bed = require('../models/bed');
+var Station= require('../models/stations');
 var router = express.Router();
 
 
@@ -19,36 +18,84 @@ router.get('/',checkAuthentication, function (req, res) {
     res.render('index', { user : req.user });
 });
 
+router.get('/home',checkAuthentication, function (req, res) {
+    res.render('home', { user : req.user });
+});
+
+router.get('/addbed',checkAuthentication, function (req, res) {
+    res.render('addbed', { user : req.user });
+});
+
+router.get('/addivset',checkAuthentication, function (req, res) {
+    res.render('addivset', { user : req.user });
+});
+
+
 router.get('/register', function(req, res) {
     res.render('register', { });
 });
 
-router.get('/addmedication',checkAuthentication, function(req, res) {
-    res.render('addmedication', { });
+router.get('/addstation',checkAuthentication, function (req, res) {
+//console.log(req.query.add_flag);
+if(req.query.add_flag=='more'){
+	  res.render('addstation', { user : req.user , add_flag:'more'});
+}else{
+Station.count({uid:req.user.id}, function(err, count){
+	//console.log(count);
+	if(count==0){
+      res.render('addstation', { user : req.user , add_flag:'newuser'});
+  }else{
+	//  console.log(req.body.stations);
+	  
+	  Station.find(function (err, stat) {
+      if (err) return console.error(err);
+      res.render('addstation', { user : req.user , add_flag:'select',stations:stat});
+      })
+	 
+  }
 });
 
-router.get('/addpatient',checkAuthentication, function(req, res) {
-	
-	Bed.find(function (err, bed) {
-  if (err) return console.error(err);
-  console.log(bed);
-  res.render('addpatient', { beds : bed });
-  
-})
+}
+
+
+
    
 });
 
-
-router.get('/addbed',checkAuthentication, function(req, res) {
-    res.render('addbed', { });
+router.get('/addpatient',checkAuthentication, function (req, res) {
+	
+   res.render('addpatient', { user : req.user });
 });
 
-router.get('/adddripset',checkAuthentication, function(req, res) {
-    res.render('adddripset', { });
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
 });
 
-router.get('/adddripo',checkAuthentication, function(req, res) {
-    res.render('adddripo', { });
+router.get('/login', function(req, res) {
+    res.render('login', { user : req.user });
+});
+
+
+router.post('/addstation',checkAuthentication, function (req, res) {
+    var station_to_add = new Station({ sname: req.body.sname,uid:req.user.id,beds:[]});
+    station_to_add .save(function (err,station_to_add) {
+			if (err) return console.error(err);
+			else res.render('index', { user : req.user,station:station_to_add.id });
+			});
+});
+
+
+router.post('/selectstation',checkAuthentication, function (req, res) {
+	console.log(req.body.statn);
+    Station.findOne({'_id':req.body.statn},function (err, stat) {
+      if (err) return console.error(err);
+      console.log(stat);
+      res.render('index', { user : req.user, station:stat});
+      })
+      
+
+		
 });
 
 
@@ -60,54 +107,17 @@ router.post('/register', function(req, res) {
         }
 
         passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
+            res.redirect('/login');
         });
     });
 });
-
-router.post('/addpatient', function(req, res) {
-	var patient_to_save= new Patient({
-		pname: req.body.pname,
-		pwt: req.body.pwt,
-		pbed: req.body.bid
-	});
-	
-	patient_to_save.save(function (err, pat) {
-    if (err) return console.error(err);
-    });
-    res.redirect('/');
-});   
-
-
-
-
-
-
-    	
-router.post('/addbed', function(req, res) {
-	var bed_to_save= new Bed({
-		bid: req.body.bid,
-		//station: req.body.station
-	});
-	
-	bed_to_save.save(function (err, pat) {
-    if (err) return console.error(err);
-    });
-    res.render('addbed', { });
-});     
+ 
 		
-router.get('/login', function(req, res) {
-    res.render('login', { user : req.user });
-});
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
+    res.redirect('/addstation?add_flag=null');
 });
 
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-});
 
 
 module.exports = router;

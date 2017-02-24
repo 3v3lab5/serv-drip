@@ -7,39 +7,137 @@
 html,body,.row {
   height:100%;
   overflow:hidden;
+ 
 }
-.row > div {
-  height:100%;
+body{
+ background:#EEEEEE;
 }
 .leftbar{
-background:#2E2E2E;
-height:100%;
-}
-.middlebar{
-background:#FCFCFC;
-overflow:scroll;
-}
-.middlebar .card{
-border-radius:.1em;
-background-color:white;
-border:1px solid #CCCCCC;
-height:100px;
-margin-bottom:1em;
-}
-.rightbar{
-background:#212121;
 height:100%;
 color:#FCFCFC;
 text-align:center;
-padding-left:0px;
+padding:0px;
+background:#263238;
+transition:all 1s;
+overflow:hidden;
+
 }
-.rightbar .glyphicon {
-font-size: 20px;
+
+.leftbar .iconmain{
+text-align:center;
+background:#111111;
+height:50px;
+padding-top:10px;
+margin-bottom:30px;
+font-size:25px;
 }
-.rightbar .icon{
-padding-top:1em;
-border-bottom:1px solid #CCCCCC;
+
+.leftbar .iconmain span::before{
+letter-spacing:-14px;
 }
-.wrap{
+
+
+.leftbar .icon{
+text-align:right;
+width:300%;
+transition:all 1s;
+font-size:140%;
+line-height:20px;
+height:40px;
+}
+
+.leftbar .icon span::before{
+letter-spacing:-9px;
+}
+.leftbar .icon div{
+font-size:18px;
+padding-top:2px;
+float:left;
+width:65%;
+text-align:left;
+}
+
+.leftbar .icon span{
+margin-right:14%;
+float:left;
+width:21%;
+transition:all 1s;
+}
+.middlebar{
+overflow:scroll;
+padding-top:10px;
 height:100%;
+transition:all 1s;
 }
+
+.middlebar .card{
+border-radius:10px;
+background-color:#FFFFFF;
+border:1px solid #CCCCCC;
+margin-bottom:1em;
+padding:0px;
+overflow:hidden;
+display:flex;
+}
+
+.middlebar .card .bed{
+color:#FFFFFF;
+background:#263238;
+text-align:center;
+display:flex;
+}
+.bed h3{
+display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width:100%;
+}
+
+.middlebar .card div{
+margin:0px;
+padding:0px;
+}
+
+
+.middlebar .card .cardname{
+padding:10px;
+padding-left:3em;
+}
+
+
+.middlebar .card .schhold{
+padding-top:.8em;
+
+}
+
+.middlebar .card .schhold div{
+border-top:1px solid #aaaaaa;
+}
+
+.middlebar .card .schhold .cnt{
+border:none;
+background:#263238;
+color:#FFFFFF;
+margin-top:-.5em;
+font-size:.8em;
+padding:2px;
+}
+
+
+.medicines{
+text-align:center;
+background:#EEEEEE;
+line-height:1em;
+font-size:10px;
+}
+
+.medicines p{
+line-height:1em;
+margin:.5em;
+font-weight:bolder;
+border-right:1px solid #AAAAAA;
+}
+
+
+

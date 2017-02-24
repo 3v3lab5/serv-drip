@@ -1,31 +1,9 @@
-doctype html
-html
-  head
-    title DRIPO
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(href='/stylesheets/bootstrap.min.css', rel='stylesheet', media='screen')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-        .row.wrap
-           include leftbar
-           .col-sm-7.middlebar
-               label Add Bed
-                 br
-                 br
-                 label Station
-                    select(name='station')
-                      option(value='b1') Station B1
-                      option(value='b2') Station B2
-                      option(value='b3') Station B3
-                    
-                 br   
-                                 
-                 form.add-bed(role='form', action="/addbed", method="post")          
-                   label(for='bedid') Bed id              
-                    input#bid(name='bid', type='text', placeholder='Add multiple bed with comma b1,b2')                             
-                   br
-                   div.actions
-                    input(type="submit", value="Add")
-           include rightbar
-  script(src='/js/jquery.min.js')
-  script(src='/js/bootstrap.min.js')
+.col-sm-12
+  br
+  br
+  form(role='form',action="/addbed",method="post")
+  h4 Please add a Bed Name
+  .form-group
+  input.form-control(type='text', name="bname", placeholder='Bed name')
+  br
+  button.btn.btn-default(type='submit') Add Bed
