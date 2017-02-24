@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title DRIPO
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='/stylesheets/bootstrap.min.css', rel='stylesheet', media='screen')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+       .row.wrap
+          .col-sm-12
+            .col-sm-12.middlebar
+              br
+              br
+              if add_flag == "more"
+                form(role='form',action="/addstation",method="post")
+                  h4 Please add a Nursing Station Name
+                  .form-group
+                  input.form-control(type='text', name="sname", placeholder='Station Name')
+                  br
+                  button.btn.btn-default(type='submit') Add Station
+              else if add_flag=="newuser"
+                form(role='form',action="/addstation",method="post")
+                  h4 Please add a Nursing Station to start with
+                  .form-group
+                  input.form-control(type='text', name="sname", placeholder='Station Name')
+                  br
+                  button.btn.btn-default(type='submit') Add Station
+              else
+                form(role='form',action="/selectstation",method="post")
+                  h4 Select a Nursing Station
+                  .form-group
+                  select.form-control(name='statn')
+                    each stat in stations
+                      option(value='#{stat.id}') #{stat.sname}
+                  br
+                  a(href='/addstation?add_flag=more') Add New Station
+                  br
+                  br
+                  button.btn.btn-default(type='submit') Next
+                &nbsp;
+  script(src='/js/jquery.min.js')
+  script(src='/js/bootstrap.min.js')

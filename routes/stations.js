@@ -18,34 +18,21 @@ router.get('/',checkAuthentication, function (req, res) {
     res.render('index', { user : req.user });
 });
 
-router.get('/home',checkAuthentication, function (req, res) {
-    res.render('home', { user : req.user });
-});
-
-router.get('/addbed',checkAuthentication, function (req, res) {
-    res.render('addbed', { user : req.user });
-});
-
-router.get('/addivset',checkAuthentication, function (req, res) {
-    res.render('addivset', { user : req.user });
-});
-
-
 router.get('/register', function(req, res) {
     res.render('register', { });
 });
 
 router.get('/addstation',checkAuthentication, function (req, res) {
-//console.log(req.query.add_flag);
+console.log(req.query.add_flag);
 if(req.query.add_flag=='more'){
 	  res.render('addstation', { user : req.user , add_flag:'more'});
 }else{
 Station.count({uid:req.user.id}, function(err, count){
-
+	console.log(count);
 	if(count==0){
       res.render('addstation', { user : req.user , add_flag:'newuser'});
   }else{
-	//  console.log(req.body.stations);
+	  console.log(req.body.stations);
 	  
 	  Station.find(function (err, stat) {
       if (err) return console.error(err);
@@ -81,27 +68,14 @@ router.post('/addstation',checkAuthentication, function (req, res) {
     var station_to_add = new Station({ sname: req.body.sname,uid:req.user.id,beds:[]});
     station_to_add .save(function (err,station_to_add) {
 			if (err) return console.error(err);
-			else res.render('index', { user : req.user,station:station_to_add.id });
+			else res.redirect('/');
 			});
-});
-
-
-router.post('/selectstation',checkAuthentication, function (req, res) {
-	console.log(req.body.statn);
-    Station.findOne({'_id':req.body.statn},function (err, stat) {
-      if (err) return console.error(err);
-      console.log(stat);
-      res.render('index', { user : req.user, station:stat});
-      })
-      
-
-		
 });
 
 
 
 router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username, hname : req.body.hname }), req.body.password,  function(err, account) {
+    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
         if (err) {
             return res.render('register', { account : account });
         }
